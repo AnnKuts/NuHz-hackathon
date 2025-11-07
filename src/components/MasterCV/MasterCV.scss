@@ -82,16 +82,47 @@
   }
 }
 
-.mastercv__remove-button {
+/* Кнопка удаления теперь имеет тот же стиль, что и кнопка добавления */
+
+.mastercv__file-input-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mastercv__file-input {
+  width: 100%;
+  padding: 8px;
+  border: 2px dashed #ddd;
+  border-radius: 8px;
+  background: #fafafa;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
   &:hover {
-    background-color: #ffe0e0;
-    border-color: #cc7777;
-    color: #cc4444;
+    border-color: #999;
+    background: #f0f0f0;
   }
 
-  &:active {
-    background-color: #ffd0d0;
+  &:focus {
+    outline: none;
+    border-color: #4a90e2;
+    background: white;
   }
+}
+
+.mastercv__photo-preview {
+  display: flex;
+  justify-content: center;
+  margin-top: 8px;
+}
+
+.mastercv__photo-preview-img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 2px solid #ddd;
 }
 
 .mastercv__form-label {
@@ -152,3 +183,56 @@
   margin-top: 0;
   color: #333;
 }
+
+// Project and Experience Items
+.mastercv__project-item,
+.mastercv__experience-item {
+  background: #f9f9f9;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  .mastercv__form-input,
+  .mastercv__form-textarea {
+    margin-bottom: 12px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.mastercv__project-header,
+.mastercv__experience-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+.mastercv__project-number,
+.mastercv__experience-number {
+  font-weight: 600;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+.mastercv__date-range {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
+
+  .mastercv__form-input--small {
+    flex: 1;
+    margin-bottom: 0;
+  }
+}
+
+/* Кнопки удаления теперь используют общий стиль с кнопками добавления */
