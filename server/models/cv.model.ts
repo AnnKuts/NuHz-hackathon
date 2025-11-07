@@ -1,6 +1,6 @@
 import { Schema, model, Document } from 'mongoose';
 
-interface ICVData {
+export interface ICVData {
   personalInfo: {
     fullName: string;
     email: string;
