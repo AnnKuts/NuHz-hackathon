@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Header.scss';
 
 interface NavLink {
@@ -6,11 +7,11 @@ interface NavLink {
   label: string;
 }
 
- const Header: React.FC = () => {
+const Header: React.FC = () => {
   const navLinks: NavLink[] = [
-    { href: '#cv-master', label: 'CV-Master' },
-    { href: '#login', label: 'Log In' },
-    { href: '#interview-simulator', label: 'Interview Simulator' },
+    { href: '/master-cv', label: 'CV-Master' },
+    { href: '/login', label: 'Log In' },
+    { href: '/interview', label: 'Interview Simulator' },
   ];
 
   return (
@@ -18,18 +19,22 @@ interface NavLink {
       <div className="header__container">
         <div className="header__wrapper">
           <div className="header__logo">
-            <h1 className="header__title">Traineefy</h1>
+            <div className="header__logo">
+              <Link to="/" className="header__title">
+                Traineefy
+              </Link>
+            </div>
           </div>
 
           <nav className="header__nav">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.href}
-                href={link.href}
+                to={link.href}
                 className="header__link"
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
           </nav>
         </div>

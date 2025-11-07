@@ -1,114 +1,71 @@
 #interview-simulator {
-  max-width: 700px;
-  margin: 50px auto;
-  padding: 40px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 20px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-  color: white;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #e5e5e5;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Inter', sans-serif;
+  padding: 2rem;
 
-  h2 {
-    margin: 0 0 20px 0;
-    font-size: 2rem;
+  .quiz-container {
+    background: #f7f7f7;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    padding: 2.5rem 3rem;
+    width: 100%;
+    max-width: 600px;
     text-align: center;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    color: #111;
   }
 
   p {
-    text-align: center;
-    font-size: 1.1rem;
-    margin-bottom: 25px;
-    opacity: 0.95;
+    color: #333;
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
   }
 
   strong {
     display: block;
-    font-size: 1.3rem;
-    margin-bottom: 30px;
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
-    backdrop-filter: blur(10px);
-    line-height: 1.6;
+    border-radius: 10px;
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
   }
 
   ul {
     list-style: none;
     padding: 0;
-    margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 15px;
-
-    li {
-      button {
-        width: 100%;
-        padding: 18px 25px;
-        font-size: 1rem;
-        background: rgba(255, 255, 255, 0.95);
-        color: #4a5568;
-        border: none;
-        border-radius: 12px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        font-weight: 500;
-        text-align: left;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-
-        &:hover {
-          transform: translateY(-3px);
-          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-          background: white;
-        }
-
-        &:active {
-          transform: translateY(-1px);
-        }
-      }
-    }
+    gap: 0.8rem;
   }
 
-  > button {
-    display: block;
-    margin: 30px auto 0;
-    padding: 15px 40px;
-    font-size: 1.1rem;
-    background: white;
-    color: #667eea;
+  button {
+    background-color: #000;
+    color: #fff;
     border: none;
-    border-radius: 30px;
+    padding: 0.9rem 1.2rem;
+    border-radius: 10px;
+    font-size: 1rem;
     cursor: pointer;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    transition: all 0.25s ease;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
 
     &:hover {
-      transform: scale(1.05);
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+      background-color: #222;
+      transform: translateY(-2px);
     }
 
     &:active {
-      transform: scale(0.98);
+      transform: translateY(0);
+      background-color: #333;
     }
   }
 
-  @media (max-width: 768px) {
-    margin: 20px;
-    padding: 30px 20px;
-
-    h2 {
-      font-size: 1.5rem;
-    }
-
-    strong {
-      font-size: 1.1rem;
-      padding: 15px;
-    }
-
-    ul li button {
-      padding: 15px 20px;
-      font-size: 0.95rem;
-    }
+  .score {
+    margin-top: 1.5rem;
+    font-weight: 600;
   }
 }
