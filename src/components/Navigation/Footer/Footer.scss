@@ -1,0 +1,57 @@
+.footer {
+  position: relative;
+  width: 100%;
+  background: #2a2a28;
+
+  &__team {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    padding: 20px 80px;
+    background: #3a3a38;
+  }
+
+  &__member {
+    a {
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 8px 16px;
+      border: 1px solid #555;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+      display: block;
+      text-align: center;
+
+      &:hover {
+        border-color: white;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        transform: translateY(-2px);
+      }
+    }
+  }
+
+  &__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 80px;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+    p {
+      color: white;
+      font-size: 12px;
+      font-weight: 400;
+      margin: 0;
+      opacity: 0.8;
+      line-height: 1.3;
+    }
+  }
+}
