@@ -1,6 +1,6 @@
 import { User, IUser } from '../models/user.model';
 import { generateToken } from '../utils/jwt';
-import { EnvSchema } from '../config/env.schema';
+
 
 export async function findOrCreateUser(
   googleId: string,
@@ -35,7 +35,7 @@ export async function findOrCreateUser(
   return user;
 }
 
-export function createAuthToken(user: IUser, config: EnvSchema): string {
+export function createAuthToken(user: IUser, jwtSecret: string): string {
   const payload = { id: user._id.toString(), email: user.email };
-  return generateToken(payload, config);
+  return generateToken(payload, jwtSecret);
 }

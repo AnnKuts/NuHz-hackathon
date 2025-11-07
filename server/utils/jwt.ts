@@ -1,16 +1,15 @@
 import jwt from 'jsonwebtoken';
-import { EnvSchema } from '../config/env.schema';
 
 export function generateToken(
   payload: { id: string; email: string },
-  config: EnvSchema
+  jwtSecret: string
 ): string {
-  return jwt.sign(payload, config.JWT_SECRET, { expiresIn: '1h' });
+  return jwt.sign(payload, jwtSecret, { expiresIn: '1h' });
 }
 
 export function verifyToken(
   token: string,
-  config: EnvSchema
+  jwtSecret: string
 ): { id: string; email: string } {
-  return jwt.verify(token, config.JWT_SECRET) as { id: string; email: string };
+  return jwt.verify(token, jwtSecret) as { id: string; email: string };
 }
