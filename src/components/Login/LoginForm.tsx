@@ -1,5 +1,3 @@
-import { signIn, signOut, useSession } from "next-auth/react";
-
 export default function LoginForm() {
   const { data: session, status } = useSession();
 
@@ -17,7 +15,7 @@ export default function LoginForm() {
   }
 
   return (
-    <div>
+    <div id="login">
       <p>Please sign in:</p>
       <button onClick={() => signIn("google", { callbackUrl: "/" })}>
         Continue with Google
