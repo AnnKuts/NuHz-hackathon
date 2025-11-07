@@ -5,7 +5,16 @@ export const MultiInputField = ({ field, formData, onAdd, onRemove, onChange }: 
 
   return (
     <div className="mastercv__form-group">
-      <label className="mastercv__form-label">{field.label}</label>
+      <div className="mastercv__form-label-with-button">
+        <label className="mastercv__form-label">{field.label}</label>
+        <button
+          type="button"
+          className="add-button"
+          onClick={onAdd}
+        >
+          +
+        </button>
+      </div>
       <div className="multi-input-container">
         {items.map((item, index) => (
           <div key={index} className="multi-input-item">
@@ -16,22 +25,17 @@ export const MultiInputField = ({ field, formData, onAdd, onRemove, onChange }: 
               onChange={(e) => onChange(index, e.target.value)}
               placeholder={field.placeholder}
             />
-            <button
-              type="button"
-              className="remove-button"
-              onClick={() => onRemove(index)}
-            >
-              Remove
-            </button>
+            {index > 0 && (
+              <button
+                type="button"
+                className="remove-button"
+                onClick={() => onRemove(index)}
+              >
+                ×
+              </button>
+            )}
           </div>
         ))}
-        <button
-          type="button"
-          className="add-button"
-          onClick={onAdd}
-        >
-          Add {field.label}
-        </button>
       </div>
     </div>
   );

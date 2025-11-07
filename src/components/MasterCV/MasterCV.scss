@@ -55,7 +55,9 @@
 }
 
 .mastercv__add-button,
-.mastercv__remove-button {
+.mastercv__remove-button,
+.add-button,
+.remove-button {
   width: 24px;
   height: 24px;
   border: 1px solid #999;
@@ -82,7 +84,18 @@
   }
 }
 
-/* Кнопка удаления теперь имеет тот же стиль, что и кнопка добавления */
+.mastercv__remove-button,
+.remove-button {
+  &:hover {
+    background-color: #ffe0e0;
+    border-color: #cc7777;
+    color: #cc4444;
+  }
+
+  &:active {
+    background-color: #ffd0d0;
+  }
+}
 
 .mastercv__file-input-wrapper {
   display: flex;
@@ -234,5 +247,3 @@
     margin-bottom: 0;
   }
 }
-
-/* Кнопки удаления теперь используют общий стиль с кнопками добавления */

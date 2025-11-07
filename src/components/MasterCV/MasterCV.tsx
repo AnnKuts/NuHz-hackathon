@@ -1,8 +1,14 @@
+// Styles
 import "./MasterCV.scss";
-import type { FormField } from "../../types/forms";
-import type { MasterCVProps } from "../../types/forms";
+
+// Types
+import type { FormField, MasterCVProps } from "../../types/forms";
+
+// Config & Utils
 import { formConfig } from "../../config/formConfig";
 import { useFormChange, useProfileLinks, useProjects, useExperiences } from "../../utils/formHooks";
+
+// Form Components
 import { FileField } from "../../forms/cv_form/FileField";
 import { TextField } from "../../forms/cv_form/TextField";
 import { MultiInputField } from "../../forms/cv_form/MultiInputField";

@@ -1,7 +1,4 @@
-/**
- * CV Data Types
- * Интерфейсы для данных резюме
- */
+import React from 'react';
 
 export interface Project {
   title: string;
@@ -18,7 +15,6 @@ export interface Experience {
 }
 
 export interface FormData {
-  // Personal Info
   photo: string;
   name: string;
   profession: string;
@@ -27,20 +23,47 @@ export interface FormData {
   phone: string;
   profileLinks: string[];
   
-  // About Me
   aboutMe: string;
   
-  // Skills and Languages
   skills: string;
   languages: string;
   
-  // Education
   education: string;
   
-  // Projects and Experience (complex structures)
   projects: Project[];
   experiences: Experience[];
   
-  // Additional
   interviewResults: string;
+}
+
+// Component interfaces
+export interface ContactItemProps {
+  icon: string;
+  text: string;
+}
+
+export interface SidebarSectionProps {
+  title: string;
+  children: React.ReactNode;
+  show?: boolean;
+}
+
+export interface CVSectionProps {
+  title: string;
+  icon?: string;
+  children: React.ReactNode;
+  className?: string;
+}
+
+export interface TextListProps {
+  items: string[];
+  className?: string;
+}
+
+export interface ExperienceItemProps {
+  experience: Experience;
+}
+
+export interface ProjectItemProps {
+  project: Project;
 }

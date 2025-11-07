@@ -1,14 +1,15 @@
 import React from 'react';
 import { useContactInfo, useSidebarSections, useMainSections } from '../../utils/cvPreviewHooks';
 import type { PreviewCVProps } from "../../types/forms";
-import type { Experience, Project } from "../../types/cv";
+import type { 
+  ContactItemProps, 
+  SidebarSectionProps, 
+  CVSectionProps, 
+  TextListProps, 
+  ExperienceItemProps, 
+  ProjectItemProps 
+} from "../../types/cv";
 import "./PreviewCV.scss";
-
-// Inline CV Components
-interface ContactItemProps {
-  icon: string;
-  text: string;
-}
 
 const ContactItem = ({ icon, text }: ContactItemProps) => (
   <div className="cv-contact-item">
@@ -16,12 +17,6 @@ const ContactItem = ({ icon, text }: ContactItemProps) => (
     <span className="cv-contact-text">{text}</span>
   </div>
 );
-
-interface SidebarSectionProps {
-  title: string;
-  children: React.ReactNode;
-  show?: boolean;
-}
 
 const SidebarSection = ({ title, children, show = true }: SidebarSectionProps) => {
   if (!show) return null;
@@ -34,13 +29,6 @@ const SidebarSection = ({ title, children, show = true }: SidebarSectionProps) =
   );
 };
 
-interface CVSectionProps {
-  title: string;
-  icon?: string;
-  children: React.ReactNode;
-  className?: string;
-}
-
 const MainSection = ({ title, icon = "•", children, className }: CVSectionProps) => (
   <div className={`cv-main-section ${className || ''}`}>
     <div className="cv-main-section-header">
@@ -50,11 +38,6 @@ const MainSection = ({ title, icon = "•", children, className }: CVSectionProp
     {children}
   </div>
 );
-
-interface TextListProps {
-  items: string[];
-  className?: string;
-}
 
 const TextList = ({ items, className = 'text-list' }: TextListProps) => (
   <div className={className}>
@@ -71,10 +54,6 @@ const TextList = ({ items, className = 'text-list' }: TextListProps) => (
   </div>
 );
 
-interface ExperienceItemProps {
-  experience: Experience;
-}
-
 const ExperienceItem = ({ experience }: ExperienceItemProps) => (
   <div className="cv-experience-item">
     <h4 className="cv-experience-position">{experience.position}</h4>
@@ -90,10 +69,6 @@ const ExperienceItem = ({ experience }: ExperienceItemProps) => (
     )}
   </div>
 );
-
-interface ProjectItemProps {
-  project: Project;
-}
 
 const ProjectItem = ({ project }: ProjectItemProps) => (
   <div className="cv-project-item">
@@ -118,7 +93,6 @@ const PreviewCV: React.FC<PreviewCVProps> = ({ formData }) => {
     <div className="preview-cv">
       <div className="cv-document">
         <div className="cv-sidebar">
-          {/* Profile Photo */}
           {formData.photo && (
             <div className="cv-photo-section">
               <img 
@@ -129,14 +103,12 @@ const PreviewCV: React.FC<PreviewCVProps> = ({ formData }) => {
             </div>
           )}
           
-          {/* Header */}
           <div className="cv-header">
             <h1 className="cv-header__name">{formData.name || "Your Name"}</h1>
             <h2 className="cv-header__title">{formData.profession || "Frontend Developer"}</h2>
             <p className="cv-header__location">{formData.location || "City, Country"}</p>
           </div>
 
-          {/* Contact Information */}
           <div className="cv-sidebar-section">
             {contactInfo.map((contact, index) => (
               <ContactItem 
@@ -147,7 +119,6 @@ const PreviewCV: React.FC<PreviewCVProps> = ({ formData }) => {
             ))}
           </div>
 
-          {/* Dynamic Sidebar Sections */}
           {sidebarSections.map((section, index) => (
             <SidebarSection key={index} title={section.title}>
               <TextList items={section.items} className={section.className} />
@@ -156,7 +127,6 @@ const PreviewCV: React.FC<PreviewCVProps> = ({ formData }) => {
         </div>
 
         <div className="cv-main-content">
-          {/* Dynamic Main Sections */}
           {mainSections.map((section, index) => {
             if (section.type === 'text') {
               return (

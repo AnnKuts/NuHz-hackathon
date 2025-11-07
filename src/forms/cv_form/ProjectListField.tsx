@@ -5,7 +5,16 @@ export const ProjectListField = ({ field, formData, onAdd, onRemove, onUpdate }:
 
   return (
     <div className="mastercv__form-group">
-      <label className="mastercv__form-label">{field.label}</label>
+      <div className="mastercv__form-label-with-button">
+        <label className="mastercv__form-label">{field.label}</label>
+        <button
+          type="button"
+          className="add-button"
+          onClick={onAdd}
+        >
+          +
+        </button>
+      </div>
       <div className="project-list-container">
         {projects.map((project, index) => (
           <div key={index} className="project-item">
@@ -30,22 +39,17 @@ export const ProjectListField = ({ field, formData, onAdd, onRemove, onUpdate }:
               placeholder="Project Summary"
               rows={3}
             />
-            <button
-              type="button"
-              className="remove-button"
-              onClick={() => onRemove(index)}
-            >
-              Remove Project
-            </button>
+            {index > 0 && (
+              <button
+                type="button"
+                className="remove-button"
+                onClick={() => onRemove(index)}
+              >
+                ×
+              </button>
+            )}
           </div>
         ))}
-        <button
-          type="button"
-          className="add-button"
-          onClick={onAdd}
-        >
-          Add Project
-        </button>
       </div>
     </div>
   );

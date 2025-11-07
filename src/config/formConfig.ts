@@ -14,7 +14,7 @@ export const formConfig: FormField[] = [
     label: 'Full Name', 
     type: 'input', 
     inputType: 'text', 
-    placeholder: 'Enter your full name', 
+    placeholder: 'Joe Johnson', 
     section: 'Personal Information' 
   },
   { 
@@ -46,7 +46,7 @@ export const formConfig: FormField[] = [
     label: 'Phone', 
     type: 'input', 
     inputType: 'text', 
-    placeholder: '+1 234 567 8900', 
+    placeholder: '+380 xxx xx xx', 
     section: 'Personal Information' 
   },
   { 
@@ -62,7 +62,7 @@ export const formConfig: FormField[] = [
     name: 'aboutMe', 
     label: 'About Me', 
     type: 'textarea', 
-    placeholder: 'Write a brief description about yourself, your background, and career goals...', 
+    placeholder: 'Write a brief description about yourself, your background, and career goals', 
     section: 'About Me', 
     rows: 4 
   },
@@ -71,7 +71,7 @@ export const formConfig: FormField[] = [
     name: 'skills', 
     label: 'Skills & Technologies', 
     type: 'textarea', 
-    placeholder: 'List your technical skills...', 
+    placeholder: 'List your soft and technical skills', 
     section: 'Skills & Languages', 
     rows: 4 
   },
@@ -79,7 +79,7 @@ export const formConfig: FormField[] = [
     name: 'languages', 
     label: 'Languages', 
     type: 'textarea', 
-    placeholder: 'English (Native), Spanish (B2)...', 
+    placeholder: 'Ukrainian (Native), English (B2)', 
     section: 'Skills & Languages', 
     rows: 2 
   },
@@ -88,7 +88,7 @@ export const formConfig: FormField[] = [
     name: 'education', 
     label: 'Education', 
     type: 'textarea', 
-    placeholder: 'University, Degree, Years...', 
+    placeholder: 'University, Degree, Years', 
     section: 'Education', 
     rows: 3 
   },
@@ -112,7 +112,7 @@ export const formConfig: FormField[] = [
     name: 'interviewResults', 
     label: 'Training Results', 
     type: 'textarea', 
-    placeholder: 'Results from interview simulator...', 
+    placeholder: 'Results from interview simulator', 
     section: 'Additional Information', 
     rows: 3 
   },
