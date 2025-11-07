@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 
-interface FormInputProps {
+interface FormProps {
   label: string;
   name: string;
   type?: string;
@@ -9,7 +9,7 @@ interface FormInputProps {
   error?: string;
 }
 
-export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
+const Form = forwardRef<HTMLInputElement, FormProps>(
   ({ label, name, type = "text", value, onChange, error }, ref) => (
     <div>
       <label htmlFor={name}>
@@ -27,3 +27,5 @@ export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
     </div>
   )
 );
+
+export default Form;
