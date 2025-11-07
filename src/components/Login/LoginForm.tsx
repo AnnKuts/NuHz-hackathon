@@ -1,25 +1,27 @@
-import { useState } from 'react';
-import type { ChangeEvent } from 'react';
-import Form from '../Form';
+import { signIn, signOut, useSession } from "next-auth/react";
 
-const LoginForm = () => {
-  const [username, setUsername] = useState<string>('');
-  const error = 'This field is required';
+export default function LoginForm() {
+  const { data: session, status } = useSession();
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setUsername(event.target.value);
-    console.log(event.target.value);
-  };
+  if (status === "loading") {
+    return <div>Loading session...</div>;
+  }
+
+  if (session) {
+    return (
+      <div>
+        <p>Signed in as {session.user?.email || session.user?.name}</p>
+        <button onClick={() => signOut()}>Sign out</button>
+      </div>
+    );
+  }
 
   return (
-    <Form
-      label="Username"
-      name="username"
-      value={username}
-      onChange={handleChange}
-      error={error}
-    />
+    <div>
+      <p>Please sign in:</p>
+      <button onClick={() => signIn("google", { callbackUrl: "/" })}>
+        Continue with Google
+      </button>
+    </div>
   );
-};
-
-export default LoginForm;
+}

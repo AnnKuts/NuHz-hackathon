@@ -1,7 +1,8 @@
 import './App.css';
-import Dashboard from './components/Dashboard/Dashboard';
 import Header from './components/Header/Header';
+import Dashboard from './components/Dashboard/Dashboard';
 // import LoginForm from './components/Login/LoginForm';
+import Footer from './components/Navigation/Footer/Footer'
 
 function App() {
   return (
@@ -9,7 +10,8 @@ function App() {
       <Dashboard />
       <Header />
       {/*<LoginForm />*/}
-    </>
+      <Footer />
+      </>
   );
 }
 
