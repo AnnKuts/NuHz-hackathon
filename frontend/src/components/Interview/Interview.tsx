@@ -52,6 +52,7 @@ function Interview() {
     questionCount: defaultQuestionCount,
   });
   const [quizStarted, setQuizStarted] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
   const [quiz, setQuiz] = React.useState<Question[]>(() => createRandomQuiz(defaultQuestionCount));
   const [currentIndex, setCurrentIndex] = React.useState(0);
   const [score, setScore] = React.useState(0);
@@ -85,6 +86,7 @@ function Interview() {
       return;
     }
 
+    setLoading(true);
     setUserAnswers([]);
     setEstimate(null);
 
@@ -95,37 +97,38 @@ function Interview() {
       } else {
         throw new Error("Invalid API response");
       }
-    } catch {
+    } catch (error) {
+      console.warn("Failed to fetch questions from API, using default questions:", error);
       setQuiz(createRandomQuiz(settings.questionCount));
+    } finally {
+      setLoading(false);
+      setRemainingTime(settings.timeLimit * 60);
+      setQuizStarted(true);
     }
-    
-    setRemainingTime(settings.timeLimit * 60);
-    setQuizStarted(true);
   };
 
   const handleAnswer = async (optionIndex: number) => {
     const currentQuestion = quiz[currentIndex];
-    const selectedAnswer = currentQuestion.options?.[optionIndex] || "";
-    
+    const selectedAnswer = currentQuestion.options[optionIndex];
+
     const newAnswer: UserAnswer = {
       question: currentQuestion.question,
       answer: selectedAnswer,
     };
 
-    if (optionIndex !== -1 && optionIndex === currentQuestion.correct) {
+    setUserAnswers((prev) => [...prev, newAnswer]);
+
+    if (optionIndex === currentQuestion.correct) {
       setScore((prev) => prev + 1);
     }
 
     if (currentIndex < quiz.length - 1) {
-      setUserAnswers((prev) => {
-        const filtered = prev.filter(a => a.question !== currentQuestion.question);
-        return [...filtered, newAnswer];
-      });
+      setUserAnswers((prev) => [...prev, newAnswer]);
       setCurrentIndex((prev) => prev + 1);
     } else {
-      const allAnswers = [...userAnswers.filter(a => a.question !== currentQuestion.question), newAnswer];
+      const allAnswers = [...userAnswers, newAnswer];
       setUserAnswers(allAnswers);
-      
+
       const timeLimitSeconds = settings.timeLimit * 60;
       setTimeUsed(timeLimitSeconds - remainingTime);
       setFinished(true);
@@ -137,23 +140,11 @@ function Interview() {
         } else {
           throw new Error("Invalid API response");
         }
-      } catch {
+      } catch (error) {
+        console.warn("Failed to get estimate from API, using score:", error);
         setEstimate(null);
       }
     }
-  };
-
-  const handleTextAnswer = (answer: string) => {
-    const currentQuestion = quiz[currentIndex];
-    const newAnswer: UserAnswer = {
-      question: currentQuestion.question,
-      answer: answer,
-    };
-    
-    setUserAnswers((prev) => {
-      const filtered = prev.filter(a => a.question !== currentQuestion.question);
-      return [...filtered, newAnswer];
-    });
   };
 
   const restartQuiz = () => {
@@ -227,7 +218,9 @@ function Interview() {
               required
             />
           </div>
-          <button type="submit">Start interview</button>
+          <button type="submit" disabled={loading}>
+            {loading ? "Loading..." : "Start interview"}
+          </button>
         </form>
       </div>
     </div>
@@ -269,32 +262,13 @@ function Interview() {
             </p>
           </div>
           <strong>{question.question}</strong>
-          {question.options && question.options.length > 0 ? (
-            <ul>
-              {question.options.map((option: string, i: number) => (
-                <li key={i}>
-                  <button onClick={() => handleAnswer(i)}>{option}</button>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <div className="text-answer-field">
-              <textarea
-                placeholder="Type your answer here..."
-                rows={4}
-                value={userAnswers.find(a => a.question === question.question)?.answer || ""}
-                onChange={(e) => handleTextAnswer(e.target.value)}
-              />
-              <button onClick={() => {
-                const currentAnswer = userAnswers.find(a => a.question === question.question);
-                if (currentAnswer && currentAnswer.answer.trim()) {
-                  handleAnswer(-1);
-                }
-              }}>
-                {currentIndex < quiz.length - 1 ? "Next" : "Finish"}
-              </button>
-            </div>
-          )}
+          <ul>
+            {question.options.map((option: string, i: number) => (
+              <li key={i}>
+                <button onClick={() => handleAnswer(i)}>{option}</button>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     );
