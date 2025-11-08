@@ -6,6 +6,7 @@ import authPlugin from './plugins/auth.plugin';
 import authRoutes from './routes/auth.routes';
 import userRoutes from './routes/user.routes';
 import cvRoutes from './routes/cv.routes';
+import interviewRoutes from './routes/interview.routes';
 import { envOptions } from './config';
 
 export async function buildApp() {
@@ -20,9 +21,10 @@ export async function buildApp() {
   await app.register(dbPlugin);
   await app.register(authPlugin);
 
-  app.register(authRoutes, { prefix: '/auth' });
-  app.register(userRoutes, { prefix: '/users' });
-  app.register(cvRoutes, { prefix: '/cvs' });
+  app.register(authRoutes, { prefix: '/api/auth' });
+  app.register(userRoutes, { prefix: '/api/users' });
+  app.register(cvRoutes, { prefix: '/api/cv' });
+  app.register(interviewRoutes, { prefix: '/api' });
 
   app.get('/', async (request, reply) => {
     reply.send({ message: 'Welcome to Student Career MVP' });
