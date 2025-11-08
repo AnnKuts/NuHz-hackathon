@@ -1,6 +1,7 @@
 import fp from 'fastify-plugin';
 import mongoose from 'mongoose';
 import { FastifyInstance } from 'fastify';
+import "../types/fastify";
 
 async function dbConnector(fastify: FastifyInstance) {
 try {

@@ -1,4 +1,4 @@
-import jwt from 'jsonwebtoken';
+import * as jwt from 'jsonwebtoken';
 import { EnvSchema } from '../config/env.schema';
 
 export function generateToken(
