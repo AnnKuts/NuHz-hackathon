@@ -11,6 +11,7 @@ import { TextField } from "../../forms/cv_form/TextField";
 import { MultiInputField } from "../../forms/cv_form/MultiInputField";
 import { ProjectListField } from "../../forms/cv_form/ProjectListField";
 import { ExperienceListField } from "../../forms/cv_form/ExperienceListField";
+import { InterviewResultsLoader } from "../InterviewResultsLoader/InterviewResultsLoader";
 
 const MasterCV = ({ formData, setFormData }: MasterCVProps) => {
   const { handleChange, handleFileChange } = useFormChange(formData, setFormData);
@@ -68,6 +69,24 @@ const MasterCV = ({ formData, setFormData }: MasterCVProps) => {
       case 'textarea':
       case 'input':
       default:
+        // Special handling for interviewResults field
+        if (field.name === 'interviewResults') {
+          return (
+            <div key={field.name} className="mastercv__form-group">
+              <label className="mastercv__form-label" htmlFor={field.name}>
+                {field.label}
+              </label>
+              <InterviewResultsLoader
+                onLoad={(result) => {
+                  setFormData(prev => ({ ...prev, interviewResults: result }));
+                }}
+                className="mastercv__interview-loader"
+                currentValue={formData.interviewResults}
+              />
+            </div>
+          );
+        }
+        
         return (
           <TextField
             {...commonProps}
