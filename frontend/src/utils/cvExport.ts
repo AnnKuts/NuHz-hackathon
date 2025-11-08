@@ -102,5 +102,26 @@ export class CVExporter {
       default:
         throw new Error(`Unsupported format: ${options.format}`);
     }
+
+    this.saveExportToStorage(options.format, filename, data.name);
+  }
+
+  private static saveExportToStorage(format: string, filename: string, userName: string): void {
+    try {
+      const existingExports = JSON.parse(localStorage.getItem('cv_exports') || '[]');
+      const exportRecord = {
+        id: Date.now().toString(),
+        format,
+        filename,
+        userName: userName || 'Anonymous',
+        timestamp: Date.now(),
+        date: new Date().toLocaleDateString()
+      };
+      
+      const updatedExports = [...existingExports, exportRecord];
+      localStorage.setItem('cv_exports', JSON.stringify(updatedExports));
+    } catch (error) {
+      console.warn('Failed to save export record to localStorage:', error);
+    }
   }
 }
