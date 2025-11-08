@@ -2,42 +2,53 @@ import "./BuilderCV.scss";
 import { useState } from "react";
 import MasterCV from "./MasterCV";
 import PreviewCV from "./PreviewCV";
+import PreviewCVTemplate2 from "./PreviewCV-Template2";
+import type { FormData } from "../../types/cv";
+import { defaultFormData } from "../../config/defaultValues";
 
-// Интерфейс для данных формы
-export interface FormData {
-  name: string;
-  email: string;
-  profileLinks: string[];
-  education: string;
-  experience: string;
-  skills: string;
-  projects: string;
-  interviewResults: string;
-}
+type TemplateType = 'template1' | 'template2';
 
 const BuilderCV = () => {
-  // Состояние формы в билдере
-  const [formData, setFormData] = useState<FormData>({
-    name: "",
-    email: "",
-    profileLinks: [""],
-    education: "",
-    experience: "",
-    skills: "",
-    projects: "",
-    interviewResults: "",
-  });
+  const [formData, setFormData] = useState<FormData>(defaultFormData);
+  const [selectedTemplate, setSelectedTemplate] = useState<TemplateType>('template1');
+
+  const renderPreview = () => {
+    switch (selectedTemplate) {
+      case 'template2':
+        return <PreviewCVTemplate2 formData={formData} />;
+      case 'template1':
+      default:
+        return <PreviewCV formData={formData} />;
+    }
+  };
 
   return (
     <div className="builder-cv">
-      {/* Левая часть - форма MasterCV */}
       <div className="builder-cv__left">
         <MasterCV formData={formData} setFormData={setFormData} />
       </div>
       
-      {/* Правая часть - превью CV */}
       <div className="builder-cv__right">
-        <PreviewCV formData={formData} />
+        <div className="template-selector">
+          <h3 className="template-selector__title">Choose Template</h3>
+          <div className="template-selector__buttons">
+            <button
+              className={`template-selector__button ${selectedTemplate === 'template1' ? 'active' : ''}`}
+              onClick={() => setSelectedTemplate('template1')}
+            >
+              Template 1
+              <span className="template-selector__preview">Classic</span>
+            </button>
+            <button
+              className={`template-selector__button ${selectedTemplate === 'template2' ? 'active' : ''}`}
+              onClick={() => setSelectedTemplate('template2')}
+            >
+              Template 2
+              <span className="template-selector__preview">Modern</span>
+            </button>
+          </div>
+        </div>
+        {renderPreview()}
       </div>
     </div>
   );
