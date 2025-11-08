@@ -51,14 +51,14 @@ const BuilderCV = () => {
           </div>
         </div>
         
+        <div ref={cvRef}>
+          {renderPreview()}
+        </div>
+        
         <ExportButtons 
           previewRef={cvRef}
           cvData={formData}
         />
-        
-        <div ref={cvRef}>
-          {renderPreview()}
-        </div>
       </div>
     </div>
   );

@@ -7,6 +7,9 @@ const Dashboard = () => {
   const handleCreateCV = () => {
     navigate("/master-cv");
   };
+  const handleInterview = () => {
+    navigate("/interview");
+  };
 
   return (
     <div className="dashboard">
@@ -20,7 +23,7 @@ const Dashboard = () => {
         <button className="dashboard__button-CV" onClick={handleCreateCV}>
           Create CV now!
         </button>
-        <button className="dashboard__button-Interview">
+        <button className="dashboard__button-Interview" onClick={handleInterview}>
           Interview simulator
         </button>
       </div>

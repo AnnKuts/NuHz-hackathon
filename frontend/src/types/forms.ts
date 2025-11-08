@@ -31,3 +31,8 @@ export interface ExportButtonConfig {
   label: string;
   description: string;
 }
+
+export interface ExportOptions {
+  format: 'pdf' | 'png' | 'json';
+  filename?: string;
+}
