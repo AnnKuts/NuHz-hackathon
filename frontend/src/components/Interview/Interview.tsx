@@ -2,6 +2,7 @@ import React from "react";
 import "./Interview.scss";
 import { interviewQuestions } from "../../utils/interviewQuestions";
 import { fetchQuestions, estimateAnswers } from "../../api/api";
+import { saveInterviewResult } from "../../utils/interviewStorage";
 
 const maxTimeLimit = 60;
 const warningTimeThreshold = 60;
@@ -110,12 +111,12 @@ function Interview() {
   const handleAnswer = async (optionIndex: number) => {
     const currentQuestion = quiz[currentIndex];
     const selectedAnswer = currentQuestion.options[optionIndex];
-    
+
     const newAnswer: UserAnswer = {
       question: currentQuestion.question,
       answer: selectedAnswer,
     };
-    
+
     setUserAnswers((prev) => [...prev, newAnswer]);
 
     if (optionIndex === currentQuestion.correct) {
@@ -128,15 +129,18 @@ function Interview() {
     } else {
       const allAnswers = [...userAnswers, newAnswer];
       setUserAnswers(allAnswers);
-      
+
       const timeLimitSeconds = settings.timeLimit * 60;
-      setTimeUsed(timeLimitSeconds - remainingTime);
+      const finalTimeUsed = timeLimitSeconds - remainingTime;
+      setTimeUsed(finalTimeUsed);
       setFinished(true);
 
+      let finalEstimate = null;
       try {
         const apiEstimate = await estimateAnswers(allAnswers);
         if (apiEstimate && apiEstimate.estimate) {
-          setEstimate(apiEstimate.estimate);
+          finalEstimate = apiEstimate.estimate;
+          setEstimate(finalEstimate);
         } else {
           throw new Error("Invalid API response");
         }
@@ -144,6 +148,16 @@ function Interview() {
         console.warn("Failed to get estimate from API, using score:", error);
         setEstimate(null);
       }
+
+      // Сохраняем результат интервью
+      saveInterviewResult({
+        score,
+        totalQuestions: quiz.length,
+        timeUsed: finalTimeUsed,
+        estimate: finalEstimate,
+        specialization: settings.specialization,
+        summary: `${score}/${quiz.length} correct answers`
+      });
     }
   };
 

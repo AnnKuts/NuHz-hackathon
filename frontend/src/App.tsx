@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 import Header from './components/Navigation/Header/Header';
 import Dashboard from './components/Dashboard/Dashboard';
-// import LoginForm from './components/Login/LoginForm';
+import UserStats from './components/UserStats/UserStats';
 import Footer from './components/Navigation/Footer/Footer';
 import Interview from './components/Interview/Interview';
 import BuilderCV from './components/MasterCV/BuilderCV';
@@ -15,6 +15,7 @@ function App() {
           <>
             <Header />
             <Dashboard />
+            <UserStats />
             <Footer />
           </>
         } />
@@ -32,7 +33,6 @@ function App() {
             <Footer />
           </>
         } />
-        {/* <Route path="/login" element={<LoginForm />} /> */}
       </Routes>
     </BrowserRouter>
   );

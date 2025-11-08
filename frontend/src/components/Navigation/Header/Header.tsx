@@ -10,8 +10,9 @@ interface NavLink {
 const Header: React.FC = () => {
   const navLinks: NavLink[] = [
     { href: '/master-cv', label: 'CV-Master' },
-    { href: '/login', label: 'Log In' },
     { href: '/interview', label: 'Interview Simulator' },
+    { href: '/login', label: 'Log In' },
+
   ];
 
   return (

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { CVExporter } from '../../utils/cvExport';
 import type { ExportButtonsProps, ExportOptions } from '../../types/forms';
 import { EXPORT_BUTTONS_CONFIG, EXPORT_MESSAGES } from '../../constants/exportButtons';
+import { validateCV } from '../../utils/validation';
 import './ExportButtons.scss';
 
 export const ExportButtons: React.FC<ExportButtonsProps> = ({
@@ -14,6 +15,12 @@ export const ExportButtons: React.FC<ExportButtonsProps> = ({
   const handleExport = async (format: ExportOptions['format']) => {
     if (!previewRef.current) {
       alert(EXPORT_MESSAGES.ELEMENT_NOT_FOUND);
+      return;
+    }
+
+    const validation = validateCV(cvData);
+    if (!validation.isValid) {
+      alert(`Form validation errors:\n${validation.errors.map(e => e.message).join('\n')}`);
       return;
     }
 

@@ -36,7 +36,6 @@ export interface FormData {
   interviewResults: string;
 }
 
-// Component interfaces
 export interface ContactItemProps {
   icon: string;
   text: string;

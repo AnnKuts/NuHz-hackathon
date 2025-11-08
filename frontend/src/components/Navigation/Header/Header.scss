@@ -51,10 +51,11 @@
     color: #ffffff;
     font-size: 1.3rem;
     text-decoration: none;
-    transition: color 0.2s ease-in-out;
+    transition: all 0.3s ease;
 
     &:hover {
       color: #d1d5db;
+      transform: scale(1.1);
     }
   }
 }
