@@ -19,7 +19,7 @@ const GoogleLogin: React.FC<GoogleLoginProps> = ({ onSuccess }) => {
 
   useEffect(() => {
     const script = document.createElement('script');
-    script.src = 'https://accounts.google.com/gsi/client';
+    script.src = 'https://accounts.google.com/gsi/client?hl=en';
     script.async = true;
     script.defer = true;
     document.body.appendChild(script);
@@ -29,6 +29,7 @@ const GoogleLogin: React.FC<GoogleLoginProps> = ({ onSuccess }) => {
         window.google.accounts.id.initialize({
           client_id: '686465713965-vivkf1mbi6j79ritmaka4a6rjsljcids.apps.googleusercontent.com',
           callback: handleCredentialResponse,
+          hl: 'en',
         });
 
         window.google.accounts.id.renderButton(
