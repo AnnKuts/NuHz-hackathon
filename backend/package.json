@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "predev": "npx kill-port 3000 || true",
     "dev:server": "tsx watch server/server.ts",
     "dev:web": "vite",
     "dev": "concurrently -k -n server,web \"npm:dev:server\" \"npm:dev:web\"",

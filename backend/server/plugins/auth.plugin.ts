@@ -1,7 +1,6 @@
 import fp from 'fastify-plugin';
 import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
 import jwt from '@fastify/jwt';
-import "../types/fastify";
 
 declare module '@fastify/jwt' {
   interface FastifyJWT {
@@ -21,7 +20,7 @@ async function authPlugin(fastify: FastifyInstance) {
       try {
         await request.jwtVerify();
       } catch (err) {
-        reply.send(err);
+        reply.code(401).send({ message: 'Unauthorized' });
       }
     }
   );

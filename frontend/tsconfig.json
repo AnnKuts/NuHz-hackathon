@@ -1,12 +1,6 @@
 {
   // Visit https://aka.ms/tsconfig to read more about this file
   "compilerOptions": {
-    "baseUrl": ".",
-    "ignoreDeprecations": "6.0",
-    "paths": {
-      "*": ["./*", "./server/*"]
-    },
-    "typeRoots": ["./node_modules/@types", "./server/types"],
     "target": "es2016",
     "experimentalDecorators": true,
     "module": "commonjs",
