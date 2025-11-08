@@ -246,3 +246,17 @@
     margin-bottom: 0;
   }
 }
+
+// Стили для валидации
+.mastercv__form-input--error,
+.mastercv__form-textarea--error {
+  border-color: #e74c3c !important;
+  box-shadow: 0 0 5px rgba(231, 76, 60, 0.3);
+}
+
+.mastercv__form-error {
+  color: #e74c3c;
+  font-size: 12px;
+  margin-top: 4px;
+  line-height: 1.3;
+}

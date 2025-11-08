@@ -1,14 +1,11 @@
-// Styles
 import "./MasterCV.scss";
 
-// Types
 import type { FormField, MasterCVProps } from "../../types/forms";
 
-// Config & Utils
 import { formConfig } from "../../config/formConfig";
 import { useFormChange, useProfileLinks, useProjects, useExperiences } from "../../utils/formHooks";
+import { useValidation } from "../../utils/validationHooks";
 
-// Form Components
 import { FileField } from "../../forms/cv_form/FileField";
 import { TextField } from "../../forms/cv_form/TextField";
 import { MultiInputField } from "../../forms/cv_form/MultiInputField";
@@ -20,6 +17,7 @@ const MasterCV = ({ formData, setFormData }: MasterCVProps) => {
   const profileLinks = useProfileLinks(formData, setFormData);
   const projects = useProjects(formData, setFormData);
   const experiences = useExperiences(formData, setFormData);
+  const { getFieldError } = useValidation(formData);
 
   const renderField = (field: FormField) => {
     const commonProps = { field, formData };
@@ -63,6 +61,7 @@ const MasterCV = ({ formData, setFormData }: MasterCVProps) => {
             onAdd={experiences.add}
             onRemove={experiences.remove}
             onUpdate={experiences.update}
+            getFieldError={getFieldError}
           />
         );
 
@@ -73,6 +72,7 @@ const MasterCV = ({ formData, setFormData }: MasterCVProps) => {
           <TextField
             {...commonProps}
             onChange={handleChange}
+            error={getFieldError(field.name)}
           />
         );
     }
