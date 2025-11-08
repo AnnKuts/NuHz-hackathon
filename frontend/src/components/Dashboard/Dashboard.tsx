@@ -28,15 +28,6 @@ const Dashboard = () => {
             <button className="dashboard__button-Interview" onClick={handleInterview}>
               Interview simulator
             </button>
-            <button 
-              className="dashboard__button-clear" 
-              onClick={() => {
-                localStorage.clear();
-                alert('LocalStorage cleared!');
-              }}
-            >
-              Clear Data
-            </button>
           </div>
         </div>
         <div className="dashboard__right">
