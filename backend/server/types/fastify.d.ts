@@ -1,7 +1,7 @@
-import 'fastify';
+import 'backend/server/types/fastify';
 import { EnvSchema } from '../config/env.schema';
 
-declare module 'fastify' {
+declare module 'backend/server/types/fastify' {
   interface FastifyInstance {
     config: EnvSchema;
   }
