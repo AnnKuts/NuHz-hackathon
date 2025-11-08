@@ -38,7 +38,7 @@ const GoogleLogin: React.FC<GoogleLoginProps> = ({ onSuccess }) => {
             size: 'large',
             width: '100%',
             text: 'signin_with',
-            locale: 'ru'
+            locale: 'en'
           }
         );
       }
