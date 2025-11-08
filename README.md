@@ -1,75 +1,101 @@
-# React + TypeScript + Vite
+# Зберігання та управління даними
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Які дані збираються та для чого?
 
-Currently, two official plugins are available:
+Ми збираємо мінімально необхідні дані для забезпечення функціональності MVP, що допомагає студентам у працевлаштуванні.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Ідентифікаційні дані
+- **ПІБ (Повне ім'я):** Для персоналізації профілю, відображення на дашборді та включення в CV.
+- **Email:** Для входу (через Google OAuth), зв'язку з користувачем та унікальної ідентифікації.
+- **Google ID:** Унікальний ідентифікатор, наданий Google OAuth, використовується для реєстрації та входу.
 
-## React Compiler
+### Професійні дані
+- **Посилання на профілі (GitHub, LinkedIn, Portfolio):** Для включення в CV та надання повного уявлення про професійні досягнення.
+- **Освіта (установа, ступінь, спеціальність, дати, опис):** Для формування розділу освіти в CV.
+- **Досвід роботи (посада, компанія, локація, дати, опис):** Для формування розділу досвіду роботи в CV.
+- **Навички (скіли):** Для відображення навичок у профілі та CV.
+- **Проєкти (назва, опис, посилання):** Для демонстрації практичного досвіду в CV.
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+### Дані про прогрес та активність
+- **Результати інтерв'ю (дата, оцінка, відгук):** Для відстеження прогресу в симуляторі інтерв'ю та надання зворотного зв'язку.
+- **Результати тренажера/квізу (назва квізу, оцінка, дата):** Для відстеження прогресу в навчальних модулях.
 
-Note: This will impact Vite dev & build performances.
+### Конфігураційні та технічні дані
+- **Дані CV (шаблон, структура контенту):** Зберігається вміст, який користувач ввів або згенерував для свого CV.
+- **Статус згоди на аналітику (optInAnalytics):** Булеве значення, що вказує, чи надав користувач згоду на анонімний збір аналітичних даних. За замовчуванням вимкнено.
+- **Часові мітки (createdAt, updatedAt):** Автоматично додаються до всіх записів для відстеження часу створення та останньої модифікації.
 
-## Expanding the ESLint configuration
+## Як і де зберігаються дані?
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **База даних:** Всі дані зберігаються у MongoDB – документо-орієнтованій базі даних.
+- **Колекція `users`:** Зберігає дані користувача (ПІБ, email, посилання, освіта, досвід, скіли, проєкти, результати інтерв'ю/тренажера, Google ID, статус аналітики, часові мітки). Кожен користувач має один запис.
+- **Колекція `cvs`:** Зберігає дані CV (ідентифікатор користувача, назва шаблону, вміст CV, посилання на PDF, часові мітки). Кожне CV користувача має окремий запис та пов'язане через поле `userId`.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Як стерти дані користувача?
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Видалення облікового запису та всіх пов'язаних даних
+- Надішліть `DELETE` запит на ендпоінт `/users`.
+- Вимагається автентифікація (JWT токен).
+- При успішному виконанні всі ваші дані (профіль, Google ID, результати інтерв'ю та тренажерів, всі збережені CV) будуть безповоротно видалені.
+- **Примітка:** Фронтенд повинен вимагати підтвердження цієї дії від користувача.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### Видалення окремого CV
+- Надішліть `DELETE` запит на ендпоінт `/cvs/:id`, де `:id` — це ID конкретного CV.
+- Вимагається автентифікація.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Конфіденційність та безпека
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- **Паролі:** Паролі не зберігаються у відкритому вигляді. Автентифікація здійснюється через Google OAuth.
+- **Публічні шари:** За замовчуванням публічні шари вимкнені.
+- **Аналітика:** Збір аналітичних даних вимкнений за замовчуванням. Включається тільки за явною згодою (opt-in) через ендпоінт `PUT /users/analytics-opt-in`.
+- **Доступ до даних:** Можливий лише після успішної автентифікації за допомогою JWT токену.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+# API Ендпоінти
+
+## Автентифікація (`/auth`)
+
+- **POST /auth/google-login**  
+  Вхід або реєстрація через Google OAuth.  
+  **Приймає:** `googleId`, `email`, `fullName`, `profilePicture` (отримані після успішної Google автентифікації).  
+  **Повертає:** JWT токен.
+
+- **GET /auth/me**  
+  Отримати профіль поточного користувача.  
+  **Вимагає:** JWT токен.
+
+## Користувачі (`/users`) *(потрібна автентифікація)*
+
+- **GET /users**  
+  Отримати деталі профілю поточного користувача.
+
+- **PUT /users**  
+  Оновити профіль поточного користувача.
+
+- **DELETE /users**  
+  Видалити поточного користувача та всі пов'язані дані.
+
+- **POST /users/interview-results**  
+  Додати новий результат інтерв'ю.
+
+- **POST /users/quiz-results**  
+  Додати новий результат квізу/тренажера.
+
+- **PUT /users/analytics-opt-in**  
+  Оновити статус згоди на аналітику.
+
+## CV (`/cvs`) *(потрібна автентифікація)*
+
+- **POST /cvs**  
+  Створити нове CV.
+
+- **GET /cvs**  
+  Отримати всі CV поточного користувача.
+
+- **GET /cvs/:id**  
+  Отримати конкретне CV за ID.
+
+- **PUT /cvs/:id**  
+  Оновити CV за ID.
+
+- **DELETE /cvs/:id**  
+  Видалити CV за ID.
