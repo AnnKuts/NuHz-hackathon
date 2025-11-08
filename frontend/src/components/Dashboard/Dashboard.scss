@@ -100,8 +100,7 @@
   }
 
   &__button-CV,
-  &__button-Interview,
-  &__button-clear {
+  &__button-Interview {
     padding: 14px 28px;
     font-size: 16px;
     font-weight: 500;
@@ -138,17 +137,6 @@
       background-color: #4b5563;
       color: #ffffff;
       border-color: #4b5563;
-    }
-  }
-
-  &__button-clear {
-    background-color: #dc2626;
-    color: #ffffff;
-    font-size: 12px;
-    padding: 8px 16px;
-
-    &:hover {
-      background-color: #b91c1c;
     }
   }
 }
