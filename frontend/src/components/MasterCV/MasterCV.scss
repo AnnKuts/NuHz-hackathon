@@ -1,0 +1,269 @@
+.mastercv__form-wrapper {
+  padding: 20px 10px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+  min-height: 100%;
+}
+
+.mastercv__form {
+  width: 100%;
+  max-width: 400px;
+}
+
+.mastercv__form-description {
+  font-size: 15px;
+  color: #888;
+  margin: 0 0 16px 0;
+  line-height: 1.4;
+}
+
+.mastercv__form-section {
+  margin-bottom: 48px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.mastercv__form-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #333;
+  margin: 0 0 36px 0;
+  text-align: left;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #ddd;
+}
+
+.mastercv__form-group {
+  margin-bottom: 15px;
+}
+
+.mastercv__interview-loader {
+  margin-bottom: 12px;
+  padding: 12px;
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 6px;
+}
+
+.mastercv__form-label-with-button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.mastercv__input-with-button {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.mastercv__add-button,
+.mastercv__remove-button,
+.add-button,
+.remove-button {
+  width: 24px;
+  height: 24px;
+  border: 1px solid #999;
+  background-color: #f5f5f5;
+  color: #666;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+
+  &:hover {
+    background-color: #e0e0e0;
+    border-color: #777;
+    color: #444;
+  }
+
+  &:active {
+    background-color: #d0d0d0;
+  }
+}
+
+.mastercv__remove-button,
+.remove-button {
+  &:hover {
+    background-color: #ffe0e0;
+    border-color: #cc7777;
+    color: #cc4444;
+  }
+
+  &:active {
+    background-color: #ffd0d0;
+  }
+}
+
+.mastercv__file-input-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mastercv__file-input {
+  width: 100%;
+  padding: 8px;
+  border: 2px dashed #ddd;
+  border-radius: 8px;
+  background: #fafafa;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    border-color: #999;
+    background: #f0f0f0;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: #4a90e2;
+    background: white;
+  }
+}
+
+.mastercv__photo-preview {
+  display: flex;
+  justify-content: center;
+  margin-top: 8px;
+}
+
+.mastercv__photo-preview-img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 2px solid #ddd;
+}
+
+.mastercv__form-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: #555;
+  margin-bottom: 8px;
+  text-align: left;
+}
+
+.mastercv__form-input,
+.mastercv__form-textarea {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 16px;
+  font-family: inherit;
+  color: #333;
+  background-color: #ffffff;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+
+  &::placeholder {
+    color: #999;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: #000000;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+  }
+
+  &:hover {
+    border-color: #999;
+  }
+}
+
+.mastercv__form-textarea {
+  resize: none;
+  min-height: 80px;
+  line-height: 1.5;
+  overflow: hidden;
+}
+
+.mastercv__CV-part {
+  width: 70%;
+  min-height: 100vh;
+  background-color: #ffffff;
+  padding: 80px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mastercv__CV-part h3 {
+  margin-top: 0;
+  color: #333;
+}
+
+.mastercv__project-item,
+.mastercv__experience-item {
+  background: #f9f9f9;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  .mastercv__form-input,
+  .mastercv__form-textarea {
+    margin-bottom: 12px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.mastercv__project-header,
+.mastercv__experience-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+.mastercv__project-number,
+.mastercv__experience-number {
+  font-weight: 600;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+.mastercv__date-range {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
+
+  .mastercv__form-input--small {
+    flex: 1;
+    margin-bottom: 0;
+  }
+}
+
+.mastercv__form-input--error,
+.mastercv__form-textarea--error {
+  border-color: #e74c3c !important;
+  box-shadow: 0 0 5px rgba(231, 76, 60, 0.3);
+}
+
+.mastercv__form-error {
+  color: #e74c3c;
+  font-size: 12px;
+  margin-top: 4px;
+  line-height: 1.3;
+}

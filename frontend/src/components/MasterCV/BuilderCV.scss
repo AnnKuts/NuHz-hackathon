@@ -1,0 +1,129 @@
+.builder-cv {
+  display: flex;
+  flex-direction: row;
+  min-height: 100vh;
+  width: 100%;
+
+  &__left {
+    width: 39%;
+    height: 100vh;
+    background-color: #f4f4f4;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    &::-webkit-scrollbar {
+      width: 12px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: #e0e0e0;
+      border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #999;
+      border-radius: 10px;
+      border: 2px solid #f4f4f4;
+
+      &:hover {
+        background: #666;
+      }
+    }
+
+    scrollbar-width: auto;
+    scrollbar-color: #999 #e0e0e0;
+  }
+
+  &__right {
+    width: 61%;
+    height: 100vh;
+    background-color: #ffffff;
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+
+    &::-webkit-scrollbar {
+      width: 12px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: #e0e0e0;
+      border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #999;
+      border-radius: 10px;
+      border: 2px solid #ffffff;
+
+      &:hover {
+        background: #666;
+      }
+    }
+
+    scrollbar-width: auto;
+    scrollbar-color: #999 #e0e0e0;
+  }
+}
+
+.template-selector {
+  margin-bottom: 20px;
+  padding: 16px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+
+  &__title {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0 0 12px 0;
+    color: #343a40;
+  }
+
+  &__buttons {
+    display: flex;
+    gap: 12px;
+  }
+
+  &__button {
+    flex: 1;
+    padding: 12px 16px;
+    border: 2px solid #dee2e6;
+    background: white;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 14px;
+    font-weight: 500;
+    color: #495057;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+
+    &:hover {
+      border-color: #adb5bd;
+      background: #f8f9fa;
+    }
+
+    &.active {
+      border-color: #6c757d;
+      background: #6c757d;
+      color: white;
+
+      .template-selector__preview {
+        color: rgba(255, 255, 255, 0.8);
+      }
+    }
+  }
+
+  &__preview {
+    font-size: 11px;
+    font-weight: 400;
+    color: #6c757d;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+}

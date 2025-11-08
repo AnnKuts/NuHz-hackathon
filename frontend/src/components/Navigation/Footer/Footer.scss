@@ -1,14 +1,15 @@
 .footer {
+.footer {
   position: relative;
   width: 100%;
-  background: #2a2a28;
+  background: #000000;
 
   &__team {
     display: flex;
     justify-content: center;
     gap: 40px;
     padding: 20px 80px;
-    background: #3a3a38;
+    background: #1a1a1a;
   }
 
   &__member {

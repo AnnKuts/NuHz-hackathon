@@ -3,10 +3,30 @@
   width: 100%;
   background-color: #ffffff;
   padding: 80px 40px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
+
+  &__content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 60px;
+    height: 100%;
+  }
+
+  &__left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  &__right {
+    flex: 0 0 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
   &__title {
     font-size: 48px;
@@ -15,7 +35,6 @@
     margin: 0 0 16px 0;
     line-height: 1.2;
     text-align: left;
-    max-width: 700px;
   }
 
   &__subtitle {
@@ -25,13 +44,59 @@
     margin: 0 0 32px 0;
     line-height: 1.4;
     text-align: left;
-    max-width: 700px;
   }
 
   &__buttons {
     display: flex;
     gap: 16px;
     flex-wrap: wrap;
+  }
+
+  &__cv-preview {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .cv-mockup {
+    width: 250px;
+    height: 320px;
+    background: #ffffff;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    }
+  }
+
+  .cv-header {
+    height: 80px;
+    background: #000000;
+    border-radius: 10px 10px 0 0;
+    margin-bottom: 20px;
+  }
+
+  .cv-lines {
+    padding: 0 20px;
+  }
+
+  .cv-line {
+    height: 8px;
+    background: #d1d5db;
+    border-radius: 4px;
+    margin-bottom: 12px;
+
+    &.short {
+      width: 60%;
+    }
+
+    &.medium {
+      width: 80%;
+    }
   }
 
   &__button-CV,
@@ -69,7 +134,10 @@
     border: 2px solid #000000;
 
     &:hover {
-      background-color: #f5f5f5;
+      background-color: #4b5563;
+      color: #ffffff;
+      border-color: #4b5563;
     }
   }
 }
+
