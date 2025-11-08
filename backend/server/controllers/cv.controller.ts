@@ -1,74 +1,66 @@
-import { FastifyRequest, FastifyReply, RouteGenericInterface } from 'fastify';
+import { FastifyRequest, FastifyReply } from 'fastify';
 import * as cvService from '../services/cv.service';
-import { ICV,ICVData } from '../models/cv.model';
-
-interface AuthRequest<T extends RouteGenericInterface = RouteGenericInterface>
-  extends FastifyRequest<T> {
-  user: {
-    id: string;
-    email: string;
-  };
-}
+import { ICV, ICVData } from '../models/cv.model';
 
 export async function createCv(
-  request: AuthRequest<{ Body: { templateName: string; data: ICVData } }>,
+  request: FastifyRequest<{ Body: { templateName: string; data: ICVData } }>,
   reply: FastifyReply
 ) {
+  if (!request.user) return reply.code(401).send({ message: 'Unauthorized' });
+
   const userId = request.user.id;
   const { templateName, data } = request.body;
   const newCv = await cvService.createCv(userId, templateName, data);
   reply.code(201).send(newCv);
 }
 
-export async function getCvs(request: AuthRequest, reply: FastifyReply) {
-  const userId = request.user.id;
-  const cvs = await cvService.getCvsByUser(userId);
+export async function getCvs(request: FastifyRequest, reply: FastifyReply) {
+  if (!request.user) return reply.code(401).send({ message: 'Unauthorized' });
+
+  const cvs = await cvService.getCvsByUser(request.user.id);
   reply.send(cvs);
 }
 
 export async function getCvById(
-  request: AuthRequest<{ Params: { id: string } }>,
+  request: FastifyRequest<{ Params: { id: string } }>,
   reply: FastifyReply
 ) {
-  const userId = request.user.id;
-  const cvId = request.params.id;
-  const cv = await cvService.getCvById(cvId);
+  if (!request.user) return reply.code(401).send({ message: 'Unauthorized' });
 
-  if (!cv || cv.userId.toString() !== userId) {
+  const cv = await cvService.getCvById(request.params.id);
+  if (!cv || cv.userId.toString() !== request.user.id) {
     return reply.code(404).send({ message: 'CV not found or unauthorized' });
   }
+
   reply.send(cv);
 }
 
 export async function updateCv(
-  request: AuthRequest<{ Params: { id: string }; Body: Partial<ICV> }>,
+  request: FastifyRequest<{ Params: { id: string }; Body: Partial<ICV> }>,
   reply: FastifyReply
 ) {
-  const userId = request.user.id;
-  const cvId = request.params.id;
-  const updates = request.body;
+  if (!request.user) return reply.code(401).send({ message: 'Unauthorized' });
 
-  const existingCv = await cvService.getCvById(cvId);
-  if (!existingCv || existingCv.userId.toString() !== userId) {
+  const cv = await cvService.getCvById(request.params.id);
+  if (!cv || cv.userId.toString() !== request.user.id) {
     return reply.code(404).send({ message: 'CV not found or unauthorized' });
   }
 
-  const updatedCv = await cvService.updateCv(cvId, updates);
+  const updatedCv = await cvService.updateCv(request.params.id, request.body);
   reply.send(updatedCv);
 }
 
 export async function deleteCv(
-  request: AuthRequest<{ Params: { id: string } }>,
+  request: FastifyRequest<{ Params: { id: string } }>,
   reply: FastifyReply
 ) {
-  const userId = request.user.id;
-  const cvId = request.params.id;
+  if (!request.user) return reply.code(401).send({ message: 'Unauthorized' });
 
-  const existingCv = await cvService.getCvById(cvId);
-  if (!existingCv || existingCv.userId.toString() !== userId) {
+  const cv = await cvService.getCvById(request.params.id);
+  if (!cv || cv.userId.toString() !== request.user.id) {
     return reply.code(404).send({ message: 'CV not found or unauthorized' });
   }
 
-  await cvService.deleteCv(cvId);
+  await cvService.deleteCv(request.params.id);
   reply.send({ message: 'CV deleted successfully' });
 }

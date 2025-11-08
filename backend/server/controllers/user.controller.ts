@@ -1,90 +1,89 @@
-import { FastifyRequest, FastifyReply, RouteGenericInterface } from 'fastify';
+import { FastifyRequest, FastifyReply } from 'fastify';
 import * as userService from '../services/user.service';
 import { IUser } from '../models/user.model';
 
-
-interface AuthRequest<T extends RouteGenericInterface = RouteGenericInterface>
-  extends FastifyRequest<T> {
-  user: {
-    id: string;
-    email: string;
-  };
-}
-
-
 export async function getCurrentUserProfile(
-  request: AuthRequest,
+  request: FastifyRequest,
   reply: FastifyReply
 ) {
-  const userId = request.user.id;
-  const user = await userService.getUserById(userId);
-  if (!user) {
-    return reply.code(404).send({ message: 'User not found' });
-  }
+  if (!request.user) return reply.code(401).send({ message: 'Unauthorized' });
 
-  const publicUserData = user.toObject();
+  const user = await userService.getUserById(request.user.id);
+  if (!user) return reply.code(404).send({ message: 'User not found' });
+
+  const publicUserData = { ...user } as any;
   delete publicUserData.googleId;
+
   reply.send(publicUserData);
 }
 
 export async function updateProfile(
-  request: AuthRequest<{ Body: Partial<IUser> }>,
+  request: FastifyRequest<{ Body: Partial<IUser> }>,
   reply: FastifyReply
 ) {
-  const userId = request.user.id;
-  const updates = request.body;
-  const updatedUser = await userService.updateUserProfile(userId, updates);
-  if (!updatedUser) {
-    return reply.code(404).send({ message: 'User not found' });
-  }
+  if (!request.user) return reply.code(401).send({ message: 'Unauthorized' });
+
+  const updatedUser = await userService.updateUserProfile(request.user.id, request.body);
+  if (!updatedUser) return reply.code(404).send({ message: 'User not found' });
+
   reply.send(updatedUser);
 }
 
-export async function deleteCurrentUser(request: AuthRequest, reply: FastifyReply) {
-  const userId = request.user.id;
-  const deletedUser = await userService.deleteUser(userId);
-  if (!deletedUser) {
-    return reply.code(404).send({ message: 'User not found' });
-  }
+export async function deleteCurrentUser(
+  request: FastifyRequest,
+  reply: FastifyReply
+) {
+  if (!request.user) return reply.code(401).send({ message: 'Unauthorized' });
+
+  const deletedUser = await userService.deleteUser(request.user.id);
+  if (!deletedUser) return reply.code(404).send({ message: 'User not found' });
 
   reply.send({ message: 'User and associated data deleted successfully' });
 }
 
 export async function addInterviewResult(
-  request: AuthRequest<{ Body: { score: number; feedback: string } }>,
+  request: FastifyRequest<{ Body: { score: number; feedback: string } }>,
   reply: FastifyReply
 ) {
-  const userId = request.user.id;
-  const { score, feedback } = request.body;
-  const updatedUser = await userService.addInterviewResult(userId, score, feedback);
-  if (!updatedUser) {
-    return reply.code(404).send({ message: 'User not found' });
-  }
+  if (!request.user) return reply.code(401).send({ message: 'Unauthorized' });
+
+  const updatedUser = await userService.addInterviewResult(
+    request.user.id,
+    request.body.score,
+    request.body.feedback
+  );
+  if (!updatedUser) return reply.code(404).send({ message: 'User not found' });
+
   reply.send(updatedUser);
 }
 
 export async function addQuizResult(
-  request: AuthRequest<{ Body: { quizName: string; score: number } }>,
+  request: FastifyRequest<{ Body: { quizName: string; score: number } }>,
   reply: FastifyReply
 ) {
-  const userId = request.user.id;
-  const { quizName, score } = request.body;
-  const updatedUser = await userService.addQuizResult(userId, quizName, score);
-  if (!updatedUser) {
-    return reply.code(404).send({ message: 'User not found' });
-  }
+  if (!request.user) return reply.code(401).send({ message: 'Unauthorized' });
+
+  const updatedUser = await userService.addQuizResult(
+    request.user.id,
+    request.body.quizName,
+    request.body.score
+  );
+  if (!updatedUser) return reply.code(404).send({ message: 'User not found' });
+
   reply.send(updatedUser);
 }
 
 export async function updateAnalyticsOptIn(
-  request: AuthRequest<{ Body: { optIn: boolean } }>,
+  request: FastifyRequest<{ Body: { optIn: boolean } }>,
   reply: FastifyReply
 ) {
-  const userId = request.user.id;
-  const { optIn } = request.body;
-  const updatedUser = await userService.updateOptInAnalytics(userId, optIn);
-  if (!updatedUser) {
-    return reply.code(404).send({ message: 'User not found' });
-  }
+  if (!request.user) return reply.code(401).send({ message: 'Unauthorized' });
+
+  const updatedUser = await userService.updateOptInAnalytics(
+    request.user.id,
+    request.body.optIn
+  );
+  if (!updatedUser) return reply.code(404).send({ message: 'User not found' });
+
   reply.send(updatedUser);
 }
