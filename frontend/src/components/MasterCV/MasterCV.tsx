@@ -1,25 +1,24 @@
-// Styles
 import "./MasterCV.scss";
 
-// Types
 import type { FormField, MasterCVProps } from "../../types/forms";
 
-// Config & Utils
 import { formConfig } from "../../config/formConfig";
 import { useFormChange, useProfileLinks, useProjects, useExperiences } from "../../utils/formHooks";
+import { useValidation } from "../../utils/validationHooks";
 
-// Form Components
 import { FileField } from "../../forms/cv_form/FileField";
 import { TextField } from "../../forms/cv_form/TextField";
 import { MultiInputField } from "../../forms/cv_form/MultiInputField";
 import { ProjectListField } from "../../forms/cv_form/ProjectListField";
 import { ExperienceListField } from "../../forms/cv_form/ExperienceListField";
+import { InterviewResultsLoader } from "../InterviewResultsLoader/InterviewResultsLoader";
 
 const MasterCV = ({ formData, setFormData }: MasterCVProps) => {
   const { handleChange, handleFileChange } = useFormChange(formData, setFormData);
   const profileLinks = useProfileLinks(formData, setFormData);
   const projects = useProjects(formData, setFormData);
   const experiences = useExperiences(formData, setFormData);
+  const { getFieldError } = useValidation(formData);
 
   const renderField = (field: FormField) => {
     const commonProps = { field, formData };
@@ -63,16 +62,36 @@ const MasterCV = ({ formData, setFormData }: MasterCVProps) => {
             onAdd={experiences.add}
             onRemove={experiences.remove}
             onUpdate={experiences.update}
+            getFieldError={getFieldError}
           />
         );
 
       case 'textarea':
       case 'input':
       default:
+        // Special handling for interviewResults field
+        if (field.name === 'interviewResults') {
+          return (
+            <div key={field.name} className="mastercv__form-group">
+              <label className="mastercv__form-label" htmlFor={field.name}>
+                {field.label}
+              </label>
+              <InterviewResultsLoader
+                onLoad={(result) => {
+                  setFormData(prev => ({ ...prev, interviewResults: result }));
+                }}
+                className="mastercv__interview-loader"
+                currentValue={formData.interviewResults}
+              />
+            </div>
+          );
+        }
+        
         return (
           <TextField
             {...commonProps}
             onChange={handleChange}
+            error={getFieldError(field.name)}
           />
         );
     }

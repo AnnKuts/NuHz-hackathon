@@ -118,5 +118,13 @@ export const useMainSections = (formData: FormData): MainSection[] => {
     });
   }
 
+  if (formData.interviewResults) {
+    sections.push({
+      title: 'INTERVIEW RESULTS',
+      type: 'text',
+      content: formData.interviewResults
+    });
+  }
+
   return sections;
 };
