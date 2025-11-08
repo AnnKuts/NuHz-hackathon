@@ -1,8 +1,9 @@
 import "./BuilderCV.scss";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import MasterCV from "./MasterCV";
 import PreviewCV from "./PreviewCV";
 import PreviewCVTemplate2 from "./PreviewCV-Template2";
+import { ExportButtons } from "../ExportButtons/ExportButtons";
 import type { FormData } from "../../types/cv";
 import { defaultFormData } from "../../config/defaultValues";
 
@@ -11,6 +12,7 @@ type TemplateType = 'template1' | 'template2';
 const BuilderCV = () => {
   const [formData, setFormData] = useState<FormData>(defaultFormData);
   const [selectedTemplate, setSelectedTemplate] = useState<TemplateType>('template1');
+  const cvRef = useRef<HTMLDivElement>(null!);
 
   const renderPreview = () => {
     switch (selectedTemplate) {
@@ -48,7 +50,15 @@ const BuilderCV = () => {
             </button>
           </div>
         </div>
-        {renderPreview()}
+        
+        <ExportButtons 
+          previewRef={cvRef}
+          cvData={formData}
+        />
+        
+        <div ref={cvRef}>
+          {renderPreview()}
+        </div>
       </div>
     </div>
   );

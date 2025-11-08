@@ -1,8 +1,3 @@
-/**
- * Form Types
- * Интерфейсы для форм и их полей
- */
-
 import type { FormData } from './cv';
 
 export interface FormField {
@@ -23,4 +18,16 @@ export interface MasterCVProps {
 
 export interface PreviewCVProps {
   formData: FormData;
+}
+
+export interface ExportButtonsProps {
+  previewRef: React.RefObject<HTMLDivElement>;
+  cvData: FormData;
+  className?: string;
+}
+
+export interface ExportButtonConfig {
+  format: 'pdf' | 'png' | 'json';
+  label: string;
+  description: string;
 }
