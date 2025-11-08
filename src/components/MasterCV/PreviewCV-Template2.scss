@@ -1,0 +1,309 @@
+@mixin text-overflow {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+@mixin card-hover {
+  transition: all 0.2s ease;
+  &:hover {
+    transform: translateY(-1px);
+  }
+}
+
+$primary-color: #6c757d;
+$primary-dark: #495057;
+$text-primary: #2d3748;
+$text-secondary: #4a5568;
+$text-muted: #718096;
+$bg-light: #f8f9fa;
+$bg-card: #f7fafc;
+$border-light: #e2e8f0;
+
+.preview-cv2 {
+  width: 100%;
+  background: $bg-light;
+  padding: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.cv2-document {
+  width: 100%;
+  max-width: 850px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  line-height: 1.5;
+  color: $text-primary;
+  overflow: hidden;
+  @include text-overflow;
+}
+
+.cv2-header {
+  background: linear-gradient(135deg, $primary-color 0%, $primary-dark 100%);
+  color: white;
+  padding: 32px 40px 24px;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, $primary-color 0%, $primary-dark 50%, $primary-color 100%);
+  }
+}
+
+.cv2-header-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.cv2-header-content {
+  flex: 1;
+}
+
+.cv2-name {
+  font-size: 36px;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.cv2-profession {
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0 0 6px 0;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.cv2-location {
+  font-size: 14px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.cv2-photo {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.cv2-contacts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.cv2-contact-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.cv2-main-content {
+  padding: 40px;
+}
+
+.cv2-section {
+  margin-bottom: 36px;
+  &:last-child { margin-bottom: 0; }
+}
+
+.cv2-section-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0 0 16px 0;
+  color: $text-primary;
+  padding-bottom: 8px;
+  border-bottom: 2px solid $primary-color;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 60px;
+    height: 2px;
+    background: $primary-dark;
+  }
+}
+
+.cv2-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.cv2-sidebar-section .cv2-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+
+  .cv2-list-item {
+    background: $bg-card;
+    color: $text-secondary;
+    padding: 6px 12px;
+    border-radius: 16px;
+    font-size: 14px;
+    font-weight: 500;
+    border: 1px solid $border-light;
+    @include card-hover;
+
+    &:hover {
+      background: #edf2f7;
+    }
+  }
+}
+
+.cv2-list:not(.cv2-sidebar-section .cv2-list) .cv2-list-item {
+  margin-bottom: 8px;
+  padding-left: 20px;
+  position: relative;
+  font-size: 14px;
+  line-height: 1.6;
+
+  &::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: $primary-color;
+    font-weight: bold;
+  }
+
+  &:last-child { margin-bottom: 0; }
+}
+
+.cv2-paragraph {
+  margin: 0 0 12px 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: $text-secondary;
+  @include text-overflow;
+  white-space: pre-wrap;
+
+  &:last-child { margin-bottom: 0; }
+}
+
+.cv2-experience-item {
+  margin-bottom: 24px;
+  padding: 20px;
+  background: $bg-light;
+  border-radius: 8px;
+  border-left: 4px solid $primary-color;
+  @include card-hover;
+
+  &:hover {
+    box-shadow: 0 4px 12px rgba(108, 117, 125, 0.1);
+  }
+
+  &:last-child { margin-bottom: 0; }
+}
+
+.cv2-experience-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.cv2-experience-left {
+  flex: 1;
+  min-width: 200px;
+}
+
+.cv2-experience-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 4px 0;
+  color: $text-primary;
+  @include text-overflow;
+}
+
+.cv2-experience-company {
+  font-size: 15px;
+  font-weight: 500;
+  margin: 0;
+  color: $primary-color;
+}
+
+.cv2-experience-dates {
+  font-size: 13px;
+  font-weight: 500;
+  color: $text-muted;
+  background: #edf2f7;
+  padding: 4px 12px;
+  border-radius: 12px;
+}
+
+.cv2-experience-description {
+  font-size: 14px;
+  line-height: 1.6;
+  color: $text-secondary;
+  margin: 0;
+  @include text-overflow;
+  white-space: pre-wrap;
+}
+
+.cv2-project-item {
+  margin-bottom: 20px;
+  padding: 18px;
+  background: white;
+  border: 1px solid $border-light;
+  border-radius: 8px;
+  @include card-hover;
+
+  &:hover {
+    border-color: $primary-color;
+    box-shadow: 0 2px 8px rgba(108, 117, 125, 0.1);
+  }
+
+  &:last-child { margin-bottom: 0; }
+}
+
+.cv2-project-header {
+  margin-bottom: 10px;
+}
+
+.cv2-project-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+  color: $text-primary;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  @include text-overflow;
+}
+
+.cv2-project-link {
+  font-size: 14px;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+
+  &:hover { opacity: 1; }
+}
+
+.cv2-project-description {
+  font-size: 14px;
+  line-height: 1.6;
+  color: $text-secondary;
+  margin: 0;
+  @include text-overflow;
+  white-space: pre-wrap;
+}
