@@ -3,7 +3,7 @@
   Traineefy
 </h1>
 
-Traineefy is a MVP web application that helps users create professional resumes (CVs) and prepare for technical and behavioral interviews.  
+Traineefy is a MVP monorepository web application that helps users create professional resumes (CVs) and prepare for technical and behavioral interviews.  
 Traineefy was built by the NuHz team in just two days. Check our short portfolio [here](https://github.com/AnnKuts/NuHz-team-portfolio)!
 
 ## Table of Contents
