@@ -1,5 +1,17 @@
-# Traineefy 
-Traineefy is a MVP web application that helps users create professional resumes (CVs) and prepare for technical and behavioral interviews. Traineefy was built by the NuHz team in just two days. Check our short portfolio [here](https://github.com/AnnKuts/NuHz-team-portfolio)
+<h1>
+  <img src="./frontend/assets/logo.png" alt="Traineefy Logo" width="32" style="position: relative; top: 5px;" />
+  Traineefy
+</h1>
+
+Traineefy is an MVP web application that helps users create professional resumes (CVs) and prepare for technical and behavioral interviews.  
+Traineefy was built by the NuHz team in just two days. Check our short portfolio [here](https://github.com/AnnKuts/NuHz-team-portfolio)!
+
+## Table of Contents
+- [Key features](#key-features)
+- [Technology stack](#technology-stack)
+- [Demo](#demo)
+- [Getting Started for Local Development](#getting-started-for-local-development)
+- [Contact](#contact)
 
 ### Key features
 - Resume builder with multiple templates
@@ -8,13 +20,14 @@ Traineefy is a MVP web application that helps users create professional resumes 
 - Authenticantion using Google Oauth 2.0
 
 ### Technology stack
-- TypeScript
-- React
-- SCSS
-- Fastify
-- Mongoose
-- MongoDB Atlas
-- Vercel
+<p align="left">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" width="45" height="45" alt="TypeScript" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" width="45" height="45" alt="React" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sass/sass-original.svg" width="45" height="45" alt="Sass" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastify/fastify-original.svg" width="45" height="45" alt="Fastify" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" width="45" height="45" alt="MongoDB" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vercel/vercel-original.svg" width="45" height="45" alt="Vercel" />
+</p>
 
 ### Demo
 <img width="1668" height="805" alt="Dashboard" src="https://github.com/user-attachments/assets/bcc3ed18-5ab1-407a-ae52-1c51c946d4ff" />
