@@ -1,106 +1,54 @@
-# Зберігання та управління даними
+# Traineefy 
+Traineefy is a MVP web application that helps users create professional resumes (CVs) and prepare for technical and behavioral interviews. Traineefy was built by the NuHz team in just two days. Check our short portfolio [here](https://github.com/AnnKuts/NuHz-team-portfolio)
 
-## Які дані збираються та для чого?
+### Key features
+- Resume builder with multiple templates
+- Save, export, and import CVs (PDF, PNG, JSON)
+- Interactive interview practice modules and question bank with AI implementation in progress
+- Authenticantion using Google Oauth 2.0
 
-Ми збираємо мінімально необхідні дані для забезпечення функціональності MVP, що допомагає студентам у працевлаштуванні.
+### Technology stack
+- TypeScript
+- React
+- SCSS
+- Fastify
+- Mongoose
+- MongoDB Atlas
+- Vercel
 
-### Ідентифікаційні дані
-- ПІБ (Повне ім'я): Для персоналізації профілю, відображення на дашборді та включення в CV.
-- Email: Для входу (через Google OAuth), зв'язку з користувачем та унікальної ідентифікації.
-- Google ID: Унікальний ідентифікатор, наданий Google OAuth, використовується для реєстрації та входу.
+### Demo
+<img width="1668" height="805" alt="Dashboard" src="https://github.com/user-attachments/assets/bcc3ed18-5ab1-407a-ae52-1c51c946d4ff" />
 
-### Професійні дані
-- Посилання на профілі (GitHub, LinkedIn, Portfolio): Для включення в CV та надання повного уявлення про професійні досягнення.
-- Освіта (установа, ступінь, спеціальність, дати, опис): Для формування розділу освіти в CV.
-- Досвід роботи (посада, компанія, локація, дати, опис): Для формування розділу досвіду роботи в CV.
-- Навички (скіли): Для відображення навичок у профілі та CV.
-- Проєкти (назва, опис, посилання): Для демонстрації практичного досвіду в CV.
+<img width="1668" height="805" alt="Entering data for CV" src="https://github.com/user-attachments/assets/06ee6f53-de3c-4e59-a9bb-ba6e836b2be1" />
 
-### Дані про прогрес та активність
-- Результати інтерв'ю (дата, оцінка, відгук): Для відстеження прогресу в симуляторі інтерв'ю та надання зворотного зв'язку.
-- Результати тренажера/квізу (назва квізу, оцінка, дата): Для відстеження прогресу в навчальних модулях.
+<img width="1668" height="805" alt="Interviewing" src="https://github.com/user-attachments/assets/ef16cd66-d042-4f5f-8784-0069fa12a3c2" />
 
-### Конфігураційні та технічні дані
-- Дані CV (шаблон, структура контенту): Зберігається вміст, який користувач ввів або згенерував для свого CV.
-- Статус згоди на аналітику (optInAnalytics): Булеве значення, що вказує, чи надав користувач згоду на анонімний збір аналітичних даних. За замовчуванням вимкнено.
-- Часові мітки (createdAt, updatedAt): Автоматично додаються до всіх записів для відстеження часу створення та останньої модифікації.
+<img width="1668" height="509" alt="Results" src="https://github.com/user-attachments/assets/be57dd85-610a-4913-8c9a-976218b51db1" />
 
-## Як і де зберігаються дані?
+### Getting started for local development
+1. Clone the repository:
+```bash
+git clone https://github.com/AnnKuts/NuHz-hackathon.git
+cd NuHz-hackathon
+```
 
-- База даних: Всі дані зберігаються у MongoDB – документо-орієнтованій базі даних.
-- Колекція `users`: Зберігає дані користувача (ПІБ, email, посилання, освіта, досвід, скіли, проєкти, результати інтерв'ю/тренажера, Google ID, статус аналітики, часові мітки). Кожен користувач має один запис.
-- Колекція `cvs`: Зберігає дані CV (ідентифікатор користувача, назва шаблону, вміст CV, посилання на PDF, часові мітки). Кожне CV користувача має окремий запис та пов'язане через поле userId.
+2. Install dependencies:
+```bash
+npm install
+```
 
-## Як стерти дані користувача?
+3. Start the server:
+```bash
+cd backend
+npm run dev
+```
+4 Start the website:
+```bash
+cd frontend
+npm run dev
+```
 
-### Видалення облікового запису та всіх пов'язаних даних
-- Надішліть DELETE запит на ендпоінт /users.
-- Вимагається автентифікація (JWT токен).
-- При успішному виконанні всі ваші дані (профіль, Google ID, результати інтерв'ю та тренажерів, всі збережені CV) будуть безповоротно видалені.
-- Примітка: Фронтенд повинен вимагати підтвердження цієї дії від користувача.
+4. Open http://localhost:3000 (or the port reported by the dev server)
 
-### Видалення окремого CV
-- Надішліть DELETE запит на ендпоінт /cvs/:id, де :id — це ID конкретного CV.
-- Вимагається автентифікація.
-
-## Конфіденційність та безпека
-
-- Паролі: Паролі не зберігаються у відкритому вигляді. Автентифікація здійснюється через Google OAuth.
-- Публічні шари: За замовчуванням публічні шари вимкнені.
-- Аналітика: Збір аналітичних даних вимкнений за замовчуванням. Включається тільки за явною згодою (opt-in) через ендпоінт PUT /users/analytics-opt-in.
-- Доступ до даних: Можливий лише після успішної автентифікації за допомогою JWT токену.
-
-# API Ендпоінти
-
-## Автентифікація (/auth)
-
-- POST /auth/google-login  
-  Вхід або реєстрація через Google OAuth.  
-  Приймає: googleId, email, fullName, profilePicture (отримані після успішної Google автентифікації).  
-  Повертає: JWT токен.
-
-- GET /auth/me  
-  Отримати профіль поточного користувача.  
-  Вимагає: JWT токен.
-
-## Користувачі (/users) *(потрібна автентифікація)*
-
-- GET /users  
-  Отримати деталі профілю поточного користувача.
-
-- PUT /users  
-  Оновити профіль поточного користувача.
-
-- DELETE /users  
-  Видалити поточного користувача та всі пов'язані дані.
-
-- POST /users/interview-results  
-  Додати новий результат інтерв'ю.
-
-- POST /users/quiz-results  
-  Додати новий результат квізу/тренажера.
-
-- PUT /users/analytics-opt-in  
-  Оновити статус згоди на аналітику.
-
-## CV (/cvs) *(потрібна автентифікація)*
-
-- POST /cvs  
-  Створити нове CV.
-  - GET /cvs  
-  Отримати всі CV поточного користувача.
-
-- GET /cvs/:id  
-  Отримати конкретне CV за ID.
-
-- PUT /cvs/:id  
-  Оновити CV за ID.
-
-- DELETE /cvs/:id  
-  Видалити CV за ID.
-
-- POST /cvs/:id/generate-pdf  
-  Згенерувати PDF для CV.
-
-- POST /cvs/generate-with-llm  
-  Згенерувати чернетку CV за допомогою LLM на основі даних профілю користувача.
+### Contact
+For questions or help open an issue or contact the maintainers listed in the repository. Feel free to send pull requests for contribution!
