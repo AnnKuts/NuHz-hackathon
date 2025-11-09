@@ -42,13 +42,13 @@ npm install
 cd backend
 npm run dev
 ```
-4 Start the website:
+4. Start the website:
 ```bash
 cd frontend
 npm run dev
 ```
 
-4. Open http://localhost:3000 (or the port reported by the dev server)
+5. Open http://localhost:3000 (or the port reported by the dev server)
 
 ### Contact
 For questions or help open an issue or contact the maintainers listed in the repository. Feel free to send pull requests for contribution!
